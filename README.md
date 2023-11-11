@@ -7,13 +7,30 @@
   Desenvolver um Sistema para auxiliar cozinheiros amadores e profissionais, fornecendo receitas e dicas culinárias por meio de uma aplicação de LLM (Large Language Models).
 
 ## Tecnologias 
-  Front-end do Projeto desenvolvido com: JavaScript, Next.js, NextAuth e TailwindCss.
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" alt-"HTML5"/><br>
+      <sub><b>HTML5</b></sub>
+    </td>
+   <td align="center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="40" height="40" alt-"HTML5"/><br>
+      <sub><b>JavaScript</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg" width="40" height="40" alt-"HTML5"/><br>
+      <sub><b>NextJs</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" width="40" height="40" alt-"HTML5"/><br>
+      <sub><b>TailwindCss</b></sub>
+    </td>
+  </tr>
+</table>
 
 ## Funcionalidades Principais
-1. Respostas sobre Tópicos Culinários, por meio do ChatBot
-2. Possibilidade de Salvar mensagens.
-
-
+- Respostas sobre Tópicos Culinários, por meio do ChatBot
+- Possibilidade de Salvar mensagens.
 
 # Como Utilizar
 ### 1. Clone este repositório para o seu ambiente local.
