@@ -14,9 +14,20 @@ export default function Home() {
   }
 
   return(
-    <div>
-      <div style={{ width: "100%", height: "100vh", position: 'relative', background: 'linear-gradient(0deg, #F5F5F5 0%, #F5F5F5 100%)', backgroundImage: 'url(/image/Rectangle3.png)' }}>
-        {typeAcess ? (<AuthForm tooglePage={() => acess()}/>) : (<Cadastro tooglePage={() => acess()}/>)}
+    <div className="w-screen h-screen bg-food-pattern bg-zinc-100 flex items-center justify-center">
+      <div className="
+        relative
+        w-9/12 h-5/6
+        bg-white
+        border border-stone-100 drop-shadow-md
+        rounded
+        grid grid-cols-2 gap-0
+      ">
+        {typeAcess ? (
+          <AuthForm tooglePage={() => acess()}/>
+        ): (
+          <Cadastro tooglePage={() => acess()}/>
+        )}
       </div>
     </div>
   )

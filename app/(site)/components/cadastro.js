@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast';
 import api from '@/app/api/api';
 import axios from 'axios';
+import { Image } from 'next/image';
 import { signIn, useSession } from "next-auth/react";
 
 export default function Cadastro({tooglePage}) {
@@ -41,7 +42,6 @@ export default function Cadastro({tooglePage}) {
         const formProps = Object.fromEntries(formData);
 
         const userType = formProps.plano;
-
         // Logar como admin e completar o Header
         
         const data = {
@@ -53,6 +53,7 @@ export default function Cadastro({tooglePage}) {
 
         if(successRegister) {
             toast.success("Usuario criado com sucesso!");
+            e.target.reset();
         } else {
             toast.error("Erro ao criar usuário");
         }
@@ -60,93 +61,150 @@ export default function Cadastro({tooglePage}) {
     }
 
     return (
-        <div>
-            <div className="w-[1313px] h-[892px] left-[62px] top-[66px] absolute bg-white rounded-[15px] border border-stone-300" />
-            <div className="w-[662px] h-[892px] left-[721px] top-[66px] absolute">
-                <div className="w-[654px] h-[892px] left-0 top-0 absolute bg-orange bg-food-pattern rounded-tr-[15px] rounded-br-[15px]" />
-                <img className="w-[662px] h-[892px] left-0 top-0 absolute" src="/image/promocionalChef.png" />
-            </div>
-            <form onSubmit={onFormSubmit} id="cadastro" className="w-[536px] h-[763px] left-[119px] top-[133px] absolute">
-                <div className="w-[536px] h-11 left-0 top-0 absolute text-black text-[35px] font-bold font-['Roboto']">Cadastro:</div>
-                {/* usuário */}
-                <div className="w-[536px] h-[93px] left-0 top-[59px] absolute">
-                    <input 
-                        id='username'
-                        name='username'
-                        className="w-[536px] h-[48px] left-0 top-[41px] absolute bg-transparent rounded-md border border-gray-300" 
-                        type="text"
-                        required 
-                        autoFocus
-                    />
-                    <label for="username" className="left-0 top-0 absolute text-zinc-800 text-3xl font-bold font-['Roboto']">Usuario</label>
+        <>
+            <div className='text-center'>
+                <div className='text-start mt-4'>
+                    <h1 className='font-bold text-2xl mx-8'>
+                        Cadastro: 
+                    </h1>
                 </div>
-                {/* senha */}
-                <div className="w-[266px] h-[93px] left-0 top-[173px] absolute">
-                    <input 
-                        id='psw'
-                        name='psw'
-                        className="w-[266px] h-[48px] left-0 top-[41px] absolute bg-transparent rounded-md border border-gray-300" 
-                        type="password" 
-                        required
-                    />
-                    <label for="psw" className="w-[266px] left-0 top-0 absolute text-zinc-800 text-3xl font-bold font-['Roboto']">Senha</label>
-                </div>
-                {/* confirmar senha */}
-                <div className="w-[266px] h-[93px] left-[270px] top-[173px] absolute">
-                    <input 
-                    id='pswConf'
-                    name='pswConf'
-                    className="w-[266px] h-[48px] left-0 top-[41px] absolute bg-transparent rounded-md border border-gray-300" type="password" />
-                    <label for="pswConf" className="w-[266px] left-0 top-0 absolute text-zinc-800 text-3xl font-bold font-['Roboto']">Confirmar senha</label>
-                </div>
-                {/* email */}
-                <div className="w-[536px] h-[93px] left-0 top-[288px] absolute">
-                    <input 
-                    id='email'
-                    name='email'
-                    className="w-[536px] h-[48px] left-0 top-[41px] absolute bg-transparent rounded-md border border-gray-300" type="email" />
-                    <label for="email" className="left-0 top-0 absolute text-zinc-800 text-3xl font-bold font-['Roboto']">Email</label>
-                </div>
-                {/* checkbox */}
-                <div className="w-[531px] h-[90px] left-[3px] top-[403px] absolute">
-                    <label for="plano" className="w-[531px] h-[37.71px] left-0 top-0 absolute text-zinc-800 text-3xl font-bold font-['Roboto']">Plano:</label>
-                    <div className="w-[216px] h-[38.57px] left-0 top-[51.43px] absolute">
-                        <input 
-                            checked 
-                            type="radio" 
-                            name="plano" 
-                            id="gratuito" 
-                            className="w-[45px] h-[38.57px] left-0 top-0 absolute bg-white bg-opacity-0 rounded-[7px] border border-stone-300" 
-                            value={'free'}
+                <form onSubmit={onFormSubmit} className='flex flex-col justify-around items-start mx-8 gap-4'>
+                    {/* usuário */}
+                    <>
+                        <label for="username" className="text-text text-md font-bold">Usuário</label>
+                        <input
+                            id='username'
+                            name='username'
+                            type="text"
+                            required
+                            autoFocus
+                            className="
+                                w-full
+                                px-3 py-1
+                                bg-transparent
+                                rounded border border-gray-300 outline-blue-200
+                            "
                         />
-                        <label htmlFor="gratuito" className="w-[164px] h-[38.57px] left-[52px] top-0 absolute text-zinc-800 text-3xl font-normal font-['Roboto']">Gratuito</label>
+                    </>
+                    {/* senha */}
+                    <div className='flex flex-row wrap gap-6'>
+                        <div className='flex flex-col items-start'>
+                            <label for="psw" className="text-text text-md font-bold">Senha</label>
+                            <input
+                                id='psw'
+                                name='psw'
+                                type="password"
+                                required
+                                className="
+                                    w-full
+                                    px-3 py-1
+                                    bg-transparent
+                                    rounded border border-gray-300 outline-blue-200
+                                "
+                            />
+                        </div>
+                        <div className='flex flex-col items-start'>
+                            <label for="pswConf" className="text-text text-md font-bold">Confirmar Senha</label>
+                            <input
+                                id='pswConf'
+                                name='pswConf'
+                                type="password"
+                                className="
+                                    w-full
+                                    px-3 py-1
+                                    bg-transparent
+                                    rounded border border-gray-300 outline-blue-200
+                                "
+                            />
+                        </div>
                     </div>
-                    <div className="w-[216px] h-[38.57px] left-[239px] top-[51.43px] absolute">
-                        <input 
-                            type="radio" 
-                            name="plano" 
-                            id="vip" 
-                            className="w-[45px] h-[38.57px] left-0 top-0 absolute bg-white bg-opacity-0 rounded-[7px] border border-stone-300" 
-                            value={'member'}
+                    {/* email */}
+                    <>
+                        <label for="email" className="text-text text-md font-bold">Email: </label>
+                        <input
+                            id='email'
+                            name='email'
+                            type="email"
+                            className="
+                                w-full
+                                px-3 py-1
+                                bg-transparent
+                                rounded border border-gray-300 outline-blue-200
+                            "
                         />
-                        <label htmlFor="vip" className="w-[164px] h-[38.57px] left-[52px] top-0 absolute text-zinc-800 text-3xl font-normal font-['Roboto']">VIP</label>
+                    </>
+                    <>
+                    <label className='text-text text-md font-bold'>
+                        Plano: 
+                    </label>
+                    <div className='grid w-full gap-6 grid-cols-2 text-start'>
+                        <div class="flex gap-2 items-center">
+                            <input
+                                checked
+                                type="radio"
+                                name="plano"
+                                id="gratuito"
+                                className="w-6 h-6 border border-stone-300"
+                                value={'free'}
+                            />
+                            <label htmlFor="gratuito" className="text-text text-md font-bold">Gratuito</label>
+                        </div>
+                        <div class="flex gap-2 items-center">
+                            <input
+                                type="radio"
+                                name="plano"
+                                id="member"
+                                className="w-6 h-6 border border-stone-300"
+                                value={'member'}
+                            />
+                            <label htmlFor="member" className="text-text text-md font-bold">Membro</label>
+                        </div>
                     </div>
-                </div>
-                <div className="w-[258px] h-[63px] left-[139px] top-[552px] absolute">
-                    <div className="w-[258px] h-[63px] left-0 top-0 absolute bg-emerald-500 rounded-lg shadow border border-red-400 border-opacity-10" />
-                    <button type="submit"
-                        className="w-[258px] h-[63px] left-0 top-0 absolute text-center text-neutral-100 text-3xl font-bold font-['Roboto']">
+                    </>
+                    <button 
+                    type='submit'
+                    className='
+                        w-5/12 h-12 self-center
+                        mt-8
+                        text-center text-neutral-100 text-xl font-bold
+                        bg-emerald-500 rounded-lg shadow border
+                        transition duration-200
+                        hover:bg-emerald-800
+                    '
+                    >
                         Cadastrar
                     </button>
-                </div>
-                <div className="w-[258px] h-[63px] left-[139px] top-[700px] absolute">
-                    <div className="w-[258px] h-[63px] left-0 top-0 absolute bg-orange rounded-lg shadow border border-red-400 border-opacity-10" />
-                    <button className="w-[258px] h-[63px] left-0 top-0 absolute text-center text-neutral-100 text-3xl font-bold font-['Roboto']" onClick={() => tooglePage()}>
+                </form>
+                <div className='mt-12'>
+                    <div 
+                        className="text-center text-text text-md font-normal"
+                    >
+                        Já possui uma conta?
+                    </div>
+                    <button 
+                        type='button' 
+                        onClick={() => tooglePage()}
+                        className="
+                        w-5/12 h-12
+                        mt-4
+                        text-center text-neutral-100 text-xl font-bold
+                        transition duration-200
+                        bg-orange rounded-lg shadow border
+                        hover:bg-yellow-900
+                    "
+                    >
                         Entrar
                     </button>
                 </div>
-                <div className="w-[282px] left-[127px] top-[662px] absolute text-center text-zinc-800 text-xl font-normal font-['Roboto']">Já possui uma conta?</div>
-            </form>
-        </div>
+            </div>
+            <div className='
+                bg-orange bg-food-pattern 
+                rounded-r
+                flex flex-col items-center justify-center wrap
+                text-center font-bold text-2xl text-white
+            '>
+                <div className='bg-promotionImg h-full w-full bg-no-repeat bg-center bg-contain'/>
+            </div>
+        </>
     )
 }
