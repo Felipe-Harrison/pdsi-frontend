@@ -17,7 +17,7 @@ export default function Home() {
     <div className="w-screen h-screen bg-food-pattern bg-zinc-100 flex items-center justify-center">
       <div className="
         relative
-        w-11/12 h-5/6
+        w-11/12 h-11/12
         md:w-9/12
         bg-white
         border border-stone-100 drop-shadow-md

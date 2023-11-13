@@ -50,12 +50,12 @@ export const AuthForm = ({tooglePage}) => {
                 flex flex-col items-center justify-center wrap
                 text-center font-bold text-2xl text-white
             '>
-                <p>Precisou de ajuda na Cozinha?</p>
+                <p className='mx-2'>Precisou de ajuda na Cozinha?</p>
                 <p>Deixa com o Chef!</p>
             </div>
             <div className='text-center'> 
                 <div className='mt-4'>
-                    <Logo height={150}/>
+                    <Logo height={175}/>
                 </div>
                 <form onSubmit={handleSubmit} className='flex flex-col justify-around items-center'>
                     {/* usuário */}
@@ -115,8 +115,9 @@ export const AuthForm = ({tooglePage}) => {
                         type='button' 
                         onClick={() => tooglePage()}
                         className="
-                        w-5/12 h-12
-                        mt-4
+                        w-fit h-12
+                        md:w-5/12
+                        mt-4 px-2
                         text-center text-neutral-100 text-xl font-bold
                         transition duration-200
                         bg-orange rounded-lg shadow border

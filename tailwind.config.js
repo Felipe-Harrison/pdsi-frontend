@@ -29,6 +29,9 @@ module.exports = {
       borderRadius: {
         borderMSg: '25px',
       },
+      height:{
+        '11/12': '90%'
+      },
       width:{
         fit: 'fit-content'
       },

@@ -57,9 +57,9 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
             "flex flex-col justify-between": true, // layout
             "bg-white/[0.75] text-text": true, // colors
             "backdrop-filter backdrop-saturate-150 backdrop-blur-lg":true, // glass effect
-            "md:w-full md:sticky md:top-2 md:z-0 top-0 z-20 fixed": true, // positioning
+            "lg:w-full lg:sticky lg:top-2 lg:z-0 top-0 z-20 fixed": true, // positioning
             "md:h-screen h-full w-[300px] rounded-r-lg": true, // for height and width
-            "transition-transform .3s ease-in-out md:translate-x-0": true, //animations
+            "transition-transform .3s ease-in-out lg:translate-x-0": true, //animations
             "-translate-x-full ": !isOpen, //hide sidebar to the left when closed
         })}
         ref={reference}
@@ -147,6 +147,7 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                                 </div>
                             ): (
                                 <div className="
+                                    px-2
                                     bg-invalid rounded-lg text-white text-sm
                                     text-center
                                 ">

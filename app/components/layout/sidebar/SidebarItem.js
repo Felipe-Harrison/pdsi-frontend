@@ -23,7 +23,7 @@ const SidebarItem = ({index,item,onClick,typeUser=true}) => {
                 })}
             >
                 <div>{!typeUser ? <LockClosedIcon className="w-6 h-6"/> : item.icon}</div> 
-                <div className="truncate">{item.label}</div>
+                <div className="truncate w-9/12">{item.label}</div>
             {item.active}
             </li>
         </Link>

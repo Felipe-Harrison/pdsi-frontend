@@ -47,17 +47,17 @@ export const MessageInput = ({onUserSend,onResponse,newChat}) => {
             }
             )
             console.log(response.data);
-            onResponse(response.data.answer,response.data.questionId);
+            onResponse(response.data.answer,response.data.questionId,true);
         
         } catch (err) {
+            if(err.response.status == 400){
+                const time = new Date();
+                onResponse("Faça uma pergunta sobre tema culinário",time.getMilliseconds())
+            }
             console.error(`Error in sendMessage: ${err}`);
-        } finally {
-            // Recolocar no Try
-            console.log("Mensagem enviada");
         }
         
     }
-
 
     return(
         <div className={`

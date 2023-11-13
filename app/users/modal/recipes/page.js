@@ -14,7 +14,6 @@ function RecipesModal(props) {
 
     return (
         <div>
-
             <Modal
                 isOpen={props.isOpen}
                 onRequestClose={props.onRequestClose}
@@ -41,18 +40,16 @@ function RecipesModal(props) {
                         </div>
                     </div>
                 </div>
-                <div className="text-center">
-                    <div className="m-4 inline-block text-xl font-bold">
+                <div className="flex flex-col mx-3 gap-4 p-2 h-11/12">
+                    <div className="mt-4 text-center text-xl font-bold">
                         id: {props.id}
                     </div>
-                </div>
-                <div className="m-4 text-xl font-bold">Pergunta:</div>
-                <div className="m-4 flex">
-                    <div className="m-4 text-base font-normal">{recipeData.message}</div>
-                </div>
-                <div className="m-4 text-xl font-bold">Resposta:</div>
-                <div className="m-4 flex h-3/6">
-                    <div className="h-11/12 m-4 px-2 text-base font-normal overflow-y-auto overscroll-contain scroll-custom">
+                    <div className="text-xl font-bold">Pergunta:</div>
+                    <div className="text-base font-normal">
+                        {recipeData.message}
+                    </div>
+                    <div className="text-xl font-bold">Resposta:</div>
+                    <div className="h-10/12 px-2 text-base font-normal overflow-y-auto overscroll-contain scroll-custom">
                         {recipeData.answer}
                     </div>
                 </div>

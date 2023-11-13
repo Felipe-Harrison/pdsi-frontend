@@ -59,7 +59,7 @@ export const getChats = async (pathname) => {
     const questions = await getRecentsChats()
     let aux = []
     aux = questions.map( question => (
-        Chat(`${question.question.substring(0,20)}`,question.questionId,pathname)
+        Chat(`${question.question.substring(0,30)}`,question.questionId,pathname)
     ));
     return aux;
 }

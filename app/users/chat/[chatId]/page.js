@@ -73,10 +73,12 @@ export default function Chat({ params }) {
     SetMessages(messages => [...messages,UserMessage(message,lId.current)]);
   }
   
-  const addBotMessage = (message,id) => {
+  const addBotMessage = (message,id,block) => {
     lId.current++;
-    SetMessages(messages => [...messages,BotMessage("Minha resposta: "+ message,id)]);
-    setShowInput(false); // Melhorar lógica depois
+    SetMessages(messages => [...messages,BotMessage("Chef: "+ message,id)]);
+    if(block) {
+      setShowInput(false);
+    }
   }
 
   return (
@@ -88,8 +90,25 @@ export default function Chat({ params }) {
           <div className="min-h-chat flex justify-center items-center font-bold text-text">Envie uma mensagem para começar</div>
         )}
       </div>
-      {showinput && (
+      {showinput ? (
         <MessageInput onUserSend={addUserMessage} onResponse={addBotMessage} newChat={params.chatId == 'new'}/>
+      ) : params.chatId == 'new' && (
+        <div className="flex justify-center">
+          <button
+            type='button'
+            onClick={() => location.reload()}
+            className='
+                w-5/12 h-12
+                mb-8
+                text-center text-neutral-100 text-xl font-bold
+                bg-emerald-500 rounded-lg shadow border
+                transition duration-200
+                hover:bg-emerald-800
+            '
+            >
+              Novo Conselho
+            </button>
+        </div>
       )}
       <div ref={scrollDiv}/>
     </div>
