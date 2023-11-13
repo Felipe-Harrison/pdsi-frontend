@@ -22,7 +22,8 @@ const SidebarItem = ({index,item,onClick,typeUser=true}) => {
                     "bg-primary text-white": item.active
                 })}
             >
-            {!typeUser ? <LockClosedIcon className="w-6 h-6"/> : item.icon} {item.label}
+                <div>{!typeUser ? <LockClosedIcon className="w-6 h-6"/> : item.icon}</div> 
+                <div className="truncate">{item.label}</div>
             {item.active}
             </li>
         </Link>

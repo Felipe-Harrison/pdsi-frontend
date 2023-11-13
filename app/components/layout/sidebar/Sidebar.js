@@ -120,7 +120,7 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                     " onClick={openModal}> 
                         Seja vip
                     </button>)}
-                    <div className="relative mt-2 flex flex-row justify-evenly mt-8">
+                    <div className="mt-2 flex flex-row justify-evenly  mt-8">
                         <div className={classNames({
                             "h-12 w-max rounded-lg text-center p-3": true,
                             "bg-success": UserData.plus,
@@ -134,11 +134,12 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                             </p>
                         </div>
                         <div className="">
-                            <p className="w-[200px] truncate">
+                            <p className="max-w-[200px] w-max truncate">
                                 {UserData.name}
                             </p>
                             {UserData.plus ? (
                                 <div className="
+                                px-2
                                 bg-success rounded-lg text-white text-sm
                                 text-center
                                 ">

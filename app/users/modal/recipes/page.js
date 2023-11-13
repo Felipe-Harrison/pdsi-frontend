@@ -20,8 +20,8 @@ function RecipesModal(props) {
                         backgroundColor: "rgba(0,0,0,0.2)",
                     },
                     content: {
-                        width: "550px",
-                        height: "45vh",
+                        width: "60%",
+                        height: "80%",
                         margin: "auto",
                         padding: "0px",
                         border: "none",
@@ -47,8 +47,10 @@ function RecipesModal(props) {
                     <div className="m-4 text-base font-normal">{recipeData.message}</div>
                 </div>
                 <div className="m-4 text-xl font-bold">Resposta:</div>
-                <div className="m-4 flex">
-                    <div className="m-4 text-base font-normal">{recipeData.answer}</div>
+                <div className="m-4 flex h-3/6">
+                    <div className="h-11/12 m-4 px-2 text-base font-normal overflow-y-auto overscroll-contain scroll-custom">
+                        {recipeData.answer}
+                    </div>
                 </div>
             </Modal>
         </div>
