@@ -1,12 +1,16 @@
 'use client';
 
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 function RecipesModal(props) {
 
-    const [recipeData,setRecipeData] = useState(props.data);
+    const [recipeData,setRecipeData] = useState({});
+
+    useEffect( () => {
+        setRecipeData(props.data);
+    },[props.data]);
 
     return (
         <div>
