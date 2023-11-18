@@ -23,6 +23,8 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
 
     const [UserData,setUserData] = useState({});
 
+    const [isLoading,setIsLoading] = useState(true);
+
     const getUserData = async () => {
         setUserData(await userSession());
     }
@@ -51,27 +53,27 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
     }
 
     return (
-        <div>
+        <>
         <div
-        className={classNames({
-            "flex flex-col justify-between": true, // layout
-            "bg-white/[0.75] text-text": true, // colors
-            "backdrop-filter backdrop-saturate-150 backdrop-blur-lg":true, // glass effect
-            "lg:w-full lg:sticky lg:top-2 lg:z-0 top-0 z-20 fixed": true, // positioning
-            "md:h-screen h-full w-[300px] rounded-r-lg": true, // for height and width
-            "transition-transform .3s ease-in-out lg:translate-x-0": true, //animations
-            "-translate-x-full ": !isOpen, //hide sidebar to the left when closed
-        })}
-        ref={reference}
+            className={classNames({
+                "flex flex-col": true, // layout
+                "bg-white/[0.75] text-text": true, // colors
+                "backdrop-filter backdrop-saturate-150 backdrop-blur-lg":true, // glass effect
+                "lg:w-full lg:sticky lg:top-2 lg:z-0 top-0 z-20 fixed": true, // positioning
+                "lg:h-screen h-full w-[300px] rounded-r-lg": true, // for height and width
+                "transition-transform .3s ease-in-out lg:translate-x-0": true, //animations
+                "-translate-x-full ": !isOpen, //hide sidebar to the left when closed
+            })}
+            ref={reference}
         >
             <nav className="h-full md:sticky top-0 md:top-2 ">
                 <div className="py-2 border-b border-pink-100">
                     <LogoWide
-                        height={80}
+                        height={10.78}
                     />
                 </div>
                 {/* nav items */}
-                <div className="py-1 text-sm mx-2 mt-2 text-text">
+                <div className="p-2 text-sm text-text">
                     Seus conselhos do Chef
                 </div>
                 <SidebarItem
@@ -84,7 +86,7 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                     }}
                     onClick={() => {}}
                 />
-                <div className="py-2 flex flex-col gap-2 h-[300px] overflow-y-auto border-b border-pink-100 overscroll-contain scroll-custom">
+                <div className="py-2 flex flex-col gap-2 h-41vh overflow-y-auto border-b border-pink-100 overscroll-contain scroll-custom">
                     { chats.length ? chats.map( (item,index) => { return (
                         <SidebarItem
                             key={index}
@@ -94,12 +96,12 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                             typeUser={UserData.plus}
                         />
                     )}) : (
-                        <span className="py-1 text-sm mx-2 mt-2 text-text text-center">
+                        <span className="p-2 text-sm text-text text-center">
                             Nenhum conselho encontrado
                         </span>
                     )}
                 </div>
-                <div className="my-4 py-2 flex flex-col gap-2 border-b border-pink-100">
+                <div className="py-2 flex flex-col gap-2 border-b border-pink-100">
                     {routes.map( (item,index) => { return (
                         <SidebarItem
                             key={index}
@@ -109,18 +111,22 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                         />
                     );})}
                 </div>
-                <div className="relative flex flex-col justify-around">
-                    {!UserData.plus && (<button className="
-                        absolute -top-2
-                        px-2 py-1
-                        w-11/12 mx-3
-                        text-white
-                        rounded 
-                        bg-invalid
-                    " onClick={openModal}> 
-                        Seja vip
-                    </button>)}
-                    <div className="mt-2 flex flex-row justify-evenly  mt-8">
+                <div className="flex flex-col gap-2 items-center">
+                    {!UserData.plus && (
+                        <button 
+                            className="
+                                px-2 py-1
+                                w-11/12 mt-1
+                                text-white
+                                rounded 
+                                bg-invalid
+                            "
+                            onClick={openModal}
+                            > 
+                            Seja vip
+                        </button>)
+                    }
+                    <div className="grid grid-cols-3 p-3 ">
                         <div className={classNames({
                             "h-12 w-max rounded-lg text-center p-3": true,
                             "bg-success": UserData.plus,
@@ -133,8 +139,8 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                                 {UserData.nameSymbol}
                             </p>
                         </div>
-                        <div className="">
-                            <p className="max-w-[200px] w-max truncate">
+                        <div className="col-span-2">
+                            <p className="truncate">
                                 {UserData.name}
                             </p>
                             {UserData.plus ? (
@@ -159,8 +165,10 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                 </div>
             </nav>
         </div>
-        <VipModal isOpen={modalIsOpen} onRequestClose={closeModal} closeModal={closeModal} />
-        </div>
+        {modalIsOpen && (
+            <VipModal isOpen={modalIsOpen} onRequestClose={closeModal} closeModal={closeModal} />
+        )}
+        </>
     );
 };
 export default Sidebar;

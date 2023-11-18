@@ -20,7 +20,7 @@ function Chat (name,id,pathname){
         href: `/users/chat/${id}`,
         icon: <ChatBubbleLeftIcon className="w-6 h-6" />,
         active: isChatActive,
-        title: `Meu conselho de nome ${id}`,
+        title: `${name}`,
     };
 };
 
@@ -103,9 +103,9 @@ export const useRoutes = () => {
         },
         {
             label: "Logout",
-            href: "/",
+            href: "",
             icon: <ArrowLeftOnRectangleIcon className="w-6 h-6" />,
-            onClick: () => signOut(),
+            onClick: () => signOut({ callbackUrl: 'http://localhost:3000/' }),
         },
     ],[pathname]);
 

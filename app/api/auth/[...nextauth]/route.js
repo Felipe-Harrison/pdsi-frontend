@@ -70,7 +70,7 @@ export const authOptions = {
                     if(err.response) {
                         console.log(err.response.data);
                     }
-                    return;
+                    
                     const users = [
                         {
                             id: 1,

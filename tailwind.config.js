@@ -30,16 +30,20 @@ module.exports = {
         borderMSg: '25px',
       },
       height:{
-        '11/12': '90%'
+        '11/12': '90%',
+        '41vh': 'calc(40.4vh)',
       },
       width:{
-        fit: 'fit-content'
+        fit: 'fit-content',
       },
       maxWidth:{
         '80p': '80%'
       },
       minHeight:{
         'chat': 'calc(100vh - 7rem)'
+      },
+      margin:{
+        'auto': 'auto'
       },
       backgroundImage: {
         'food-pattern': "url('../public/image/patternFood.svg')",

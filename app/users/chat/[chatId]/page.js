@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { isUserBase } from "@/app/api/auth/customSession";
 import api from "@/app/api/api";
 import { userSession } from "@/app/api/auth/customSession";
+import DotLoading from "@/app/components/loading/dotLoading/dotLoading";
 
 export default function Chat({ params }) {
 
@@ -16,6 +17,7 @@ export default function Chat({ params }) {
   // Gambiarra 2000
   const [messages,SetMessages] = useState([]);
   const [showinput,setShowInput] = useState(true);
+  const [isLoading,setIsLoading] = useState(false);
 
   const lId = useRef(0);
 
@@ -69,11 +71,13 @@ export default function Chat({ params }) {
   },[messages]);
   
   const addUserMessage = (message) => {
+    setIsLoading(true)
     lId.current++;
     SetMessages(messages => [...messages,UserMessage(message,lId.current)]);
   }
   
   const addBotMessage = (message,id,block) => {
+    setIsLoading(false);
     lId.current++;
     SetMessages(messages => [...messages,BotMessage("Chef: "+ message,id)]);
     if(block) {
@@ -89,6 +93,7 @@ export default function Chat({ params }) {
         ) : (
           <div className="min-h-chat flex justify-center items-center font-bold text-text">Envie uma mensagem para começar</div>
         )}
+        {isLoading && (<DotLoading/>)}
       </div>
       {showinput ? (
         <MessageInput onUserSend={addUserMessage} onResponse={addBotMessage} newChat={params.chatId == 'new'}/>

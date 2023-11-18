@@ -5,7 +5,7 @@ export const LogoWide = ({width,height,color}) => {
             <svg
                 viewBox="0 0 5000 1800"
                 width="100%"
-                height={height + "px"}
+                height={height + "vh"}
             >
                 <g className="origin-center" transform="scale(1,-1)" fill={ color ? color : "#000000"}>
                     <path 

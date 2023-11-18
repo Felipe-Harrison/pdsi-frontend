@@ -25,7 +25,7 @@ export default function ChatsLayout({params,children}) {
                 "t-0":true,
                 "w-full sticky py-4 shadow-sm": true,
              })}>
-                <h1>{chatTitle}</h1>
+                <h1 className="w-8/12 m-auto truncate">{chatTitle}</h1>
             </div>
             <div className="h-full overflow-y-scroll relative">
                 {children}

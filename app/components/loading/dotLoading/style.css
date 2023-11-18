@@ -1,0 +1,41 @@
+:root {
+    --dot-color1: #929292;
+    --dot-color2: #636363;
+    --dot-color3: #3e3e3e;
+}
+
+.dot-typing {
+    position: relative;
+    left: -9999px;
+    width: 8px;
+    height: 8px;
+    border-radius: 5px;
+    background-color: #80ffa0;
+    color: var(--dot-color1);
+    box-shadow: 9998px 0 0 0 var(--dot-color1), 9999px 0 0 0 var(--dot-color2), 10014px 0 0 0 var(--dot-color3);
+    animation: dot-typing 1.5s infinite linear;
+}
+
+@keyframes dot-typing {
+    0% {
+      box-shadow: 9984px 0 0 0 var(--dot-color1), 9999px 0 0 0 var(--dot-color2), 10014px 0 0 0 var(--dot-color3);
+    }
+    16.667% {
+      box-shadow: 9984px -10px 0 0 var(--dot-color1), 9999px 0 0 0 var(--dot-color2), 10014px 0 0 0 var(--dot-color3);
+    }
+    33.333% {
+      box-shadow: 9984px 0 0 0 var(--dot-color1), 9999px 0 0 0 var(--dot-color2), 10014px 0 0 0 var(--dot-color3);
+    }
+    50% {
+      box-shadow: 9984px 0 0 0 var(--dot-color1), 9999px -10px 0 0 var(--dot-color2), 10014px 0 0 0 var(--dot-color3);
+    }
+    66.667% {
+      box-shadow: 9984px 0 0 0 var(--dot-color1), 9999px 0 0 0 var(--dot-color2), 10014px 0 0 0 var(--dot-color3);
+    }
+    83.333% {
+      box-shadow: 9984px 0 0 0 var(--dot-color1), 9999px 0 0 0 var(--dot-color2), 10014px -10px 0 0 var(--dot-color3);
+    }
+    100% {
+      box-shadow: 9984px 0 0 0 var(--dot-color1), 9999px 0 0 0 var(--dot-color2), 10014px 0 0 0 var(--dot-color3);
+    }
+}

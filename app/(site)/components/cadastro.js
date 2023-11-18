@@ -3,8 +3,21 @@ import api from '@/app/api/api';
 import axios from 'axios';
 import { Image } from 'next/image';
 import { signIn, useSession } from "next-auth/react";
+import classNames from 'classnames';
+import { PopOver } from '@/app/components/messages/pswPopover';
+import { useRef, useState } from 'react';
+import { Spinner } from "@/app/components/loading/spinner/Spinner";
 
 export default function Cadastro({tooglePage}) {
+    
+    const [isLoading,setIsloading] = useState(false);
+    // Password Validation
+    const [openPopover,setOpenPopOver] = useState(false);
+    const pswField = useRef(null);
+    const [passwordRequisites,setPasswordRequisites] = useState(passwordValidation(''));
+    const [pswValid,setPswValid] = useState(true);
+    const [passwordValue,setPasswordValue] = useState('');
+    const [pswConfirm,setPswConfirm] = useState(true);
 
     async function register(data,userType) {
 
@@ -33,10 +46,22 @@ export default function Cadastro({tooglePage}) {
         } finally {
             return isSuccess;
         }
-    }
+    };
 
     async function onFormSubmit(e) {
         e.preventDefault();
+
+        // Bloquear senha
+        if(!pswValid){
+            toast.error("Senha inválida: Verifique senha informada");
+            return;
+        }
+
+        if(!pswConfirm){
+            toast.error("Senhas diferentes: Confirme sua senha novamente");
+            return;
+        }
+        setIsloading(true);
 
         const formData = new FormData(e.target);
         const formProps = Object.fromEntries(formData);
@@ -57,8 +82,36 @@ export default function Cadastro({tooglePage}) {
         } else {
             toast.error("Erro ao criar usuário");
         }
+        setIsloading(false);
     
-    }
+    };
+
+    function passwordValidation (password) {
+        const validations = [
+            {
+                'validation': /[a-z]/, //Minuscula
+                'text': 'Pelo menos uma letra minúscula',
+            },
+            {
+                'validation': /[A-Z]/, //Maiuscula
+                'text': 'Pelo menos uma letra maiúscula',
+            },
+            {
+                'validation': /[\W]/, //Special Char
+                'text': 'Pelo menos um caracter especial',
+            },
+            {
+                'validation': /[0-9]/, //Numero
+                'text': 'Pelo menos um número',
+            },
+        ];
+    
+        validations.forEach( validation => {
+            validation.valid = validation.validation.test(password);
+        });
+
+        return validations;
+    };
 
     return (
         <>
@@ -77,6 +130,9 @@ export default function Cadastro({tooglePage}) {
                             name='username'
                             type="text"
                             required
+                            placeholder='Informe nome de acesso'
+                            pattern='^[a-zA-Z0-9_]*$'
+                            title='Nome de acesso sem espaço'
                             autoFocus
                             className="
                                 w-full
@@ -87,7 +143,7 @@ export default function Cadastro({tooglePage}) {
                         />
                     </>
                     {/* senha */}
-                    <div className='flex flex-row wrap gap-6'>
+                    <div className='relative flex flex-row wrap gap-6'>
                         <div className='flex flex-col items-start'>
                             <label for="psw" className="text-text text-md font-bold">Senha</label>
                             <input
@@ -95,12 +151,23 @@ export default function Cadastro({tooglePage}) {
                                 name='psw'
                                 type="password"
                                 required
-                                className="
-                                    w-full
-                                    px-3 py-1
-                                    bg-transparent
-                                    rounded border border-gray-300 outline-blue-200
-                                "
+                                className={classNames({
+                                    "w-full px-3 py-1 bg-transparent rounded border border-gray-300 outline-blue-200":true,
+                                    "border-red-400 outline-red-400": !pswValid,
+                                    "border-gray-300": pswValid,
+                                })}
+                                placeholder='Insira uma senha'
+                                onFocus={() => setOpenPopOver(true)}
+                                onBlur={() => {setOpenPopOver(false)}}
+                                ref={pswField}
+                                onChange={ e => { 
+                                    const validations = passwordValidation(e.target.value);
+                                    let valid = true
+                                    validations.forEach(item => item.valid ? valid = true : valid = false);
+                                    setPswValid(valid);
+                                    setPasswordRequisites(validations);
+                                    setPasswordValue(e.target.value);
+                                }}
                             />
                         </div>
                         <div className='flex flex-col items-start'>
@@ -109,14 +176,22 @@ export default function Cadastro({tooglePage}) {
                                 id='pswConf'
                                 name='pswConf'
                                 type="password"
-                                className="
-                                    w-full
-                                    px-3 py-1
-                                    bg-transparent
-                                    rounded border border-gray-300 outline-blue-200
-                                "
+                                placeholder='Confirme a senha'
+                                className={classNames({
+                                    "w-full px-3 py-1 bg-transparent rounded border border-gray-300 outline-blue-200":true,
+                                    "border-red-400 outline-red-400": !pswConfirm,
+                                    "border-gray-300": pswConfirm,
+                                })}
+                                onChange={ e => {
+                                    if(e.target.value == passwordValue){
+                                        setPswConfirm(true);
+                                    }else{
+                                        setPswConfirm(false);
+                                    }
+                                }}
                             />
                         </div>
+                        <PopOver isOpen={openPopover} btn={pswField} pswValidation={passwordRequisites}/>
                     </div>
                     {/* email */}
                     <>
@@ -125,6 +200,7 @@ export default function Cadastro({tooglePage}) {
                             id='email'
                             name='email'
                             type="email"
+                            placeholder='Insira um email'
                             className="
                                 w-full
                                 px-3 py-1
@@ -164,15 +240,16 @@ export default function Cadastro({tooglePage}) {
                     <button 
                     type='submit'
                     className='
-                        w-5/12 h-12 self-center
+                        w-7/12 h-12 self-center
                         mt-8
                         text-center text-neutral-100 text-xl font-bold
                         bg-emerald-500 rounded-lg shadow border
                         transition duration-200
                         hover:bg-emerald-800
                     '
+                    disabled={isLoading}
                     >
-                        Cadastrar
+                       {isLoading ? ( <Spinner/> ) : 'Cadastrar' }
                     </button>
                 </form>
                 <div className='mt-12'>
