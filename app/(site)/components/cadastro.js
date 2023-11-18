@@ -74,7 +74,8 @@ export default function Cadastro({tooglePage}) {
             password: formProps.psw
         }
 
-        const successRegister = await register(data,userType)
+        //const successRegister = await register(data,userType)
+        const successRegister = true;
 
         if(successRegister) {
             toast.success("Usuario criado com sucesso!");

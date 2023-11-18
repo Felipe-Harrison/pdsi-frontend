@@ -7,6 +7,7 @@ import RecipesModal from "../modal/recipes/page";
 import FilterModal from "../modal/filter/page";
 import api from "@/app/api/api";
 import { userSession } from "@/app/api/auth/customSession";
+import { getRecentsChats } from "@/app/components/layout/sidebar/sidebarItens";
 
 const Favorites = () => {
 
@@ -28,23 +29,25 @@ const Favorites = () => {
 
             try {
                 
-                const session = await userSession();
-                const username = session.username;
+                // const session = await userSession();
+                // const username = session.username;
                 
-                const responseToken = await api.post('/v1/sso/token',{
-                    username: 'admin',
-                    password: 'admin' 
-                });
+                // const responseToken = await api.post('/v1/sso/token',{
+                //     username: 'admin',
+                //     password: 'admin' 
+                // });
     
-                const response = await api.get(`/v1/question/${username}/favorites`,
-                {
-                    headers:{
-                        Authorization: "Bearer "+ responseToken.data.accessToken
-                    }
+                // const response = await api.get(`/v1/question/${username}/favorites`,
+                // {
+                //     headers:{
+                //         Authorization: "Bearer "+ responseToken.data.accessToken
+                //     }
                     
-                });
+                // });
                 
-                const favorites = response.data;
+                // const favorites = response.data;
+
+                const favorites = await getRecentsChats();
                 
                 setFavorites( favorites.map( item => 
                     <FavoriteField 

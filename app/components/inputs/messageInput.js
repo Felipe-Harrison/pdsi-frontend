@@ -25,29 +25,31 @@ export const MessageInput = ({onUserSend,onResponse,newChat}) => {
         try {
 
             const session = await userSession();
-            
+            const time = new Date();
+            onResponse("Minha resposta: " + userMessage,time.getMilliseconds(),true);
+
             // Renovar token usuario
             
-            const responseToken = await api.post('/v1/sso/token',{
-                username: session.username,
-                password: session.password
-            });
+            // const responseToken = await api.post('/v1/sso/token',{
+            //     username: session.username,
+            //     password: session.password
+            // });
 
 
-            const response = await api.post('v1/question',{
+            // const response = await api.post('v1/question',{
                 
-                message: userMessage,
-                randomness: creativeChefMode ? 0.9 : 0.5
+            //     message: userMessage,
+            //     randomness: creativeChefMode ? 0.9 : 0.5
                 
-            },{
-                headers:{
-                    Authorization: "Bearer "+ responseToken.data.accessToken
-                }
+            // },{
+            //     headers:{
+            //         Authorization: "Bearer "+ responseToken.data.accessToken
+            //     }
                 
-            }
-            )
-            console.log(response.data);
-            onResponse(response.data.answer,response.data.questionId,true);
+            // }
+            // )
+            // console.log(response.data);
+            // onResponse(response.data.answer,response.data.questionId,true);
         
         } catch (err) {
             if(err.response.status == 400){

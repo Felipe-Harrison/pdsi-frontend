@@ -26,25 +26,25 @@ function SaveModal(props) {
         
         try {
             
-            const session = await userSession();
-            const username = session.username;
-            console.log("Data",data);
+            // const session = await userSession();
+            // const username = session.username;
+            // console.log("Data",data);
 
-            // Renovar token admin
-            const responseToken = await api.post('/v1/sso/token',{      
-                username: 'admin',
-                password: 'admin'   
-            });
+            // // Renovar token admin
+            // const responseToken = await api.post('/v1/sso/token',{      
+            //     username: 'admin',
+            //     password: 'admin'   
+            // });
             
-            const response = await api.put(`/v1/question/${username}/favorites`,
-                data,
-            {
-                headers:{
-                    Authorization: "Bearer "+ responseToken.data.accessToken
-                }   
-            });
+            // const response = await api.put(`/v1/question/${username}/favorites`,
+            //     data,
+            // {
+            //     headers:{
+            //         Authorization: "Bearer "+ responseToken.data.accessToken
+            //     }   
+            // });
 
-            console.log(response);
+            // console.log(response);
 
             toast.success("Mensagem favoritada com sucesso!!!");
 

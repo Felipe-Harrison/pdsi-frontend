@@ -8,6 +8,7 @@ import { isUserBase } from "@/app/api/auth/customSession";
 import api from "@/app/api/api";
 import { userSession } from "@/app/api/auth/customSession";
 import DotLoading from "@/app/components/loading/dotLoading/dotLoading";
+import { getRecentsChats } from "@/app/components/layout/sidebar/sidebarItens";
 
 export default function Chat({ params }) {
 
@@ -34,28 +35,29 @@ export default function Chat({ params }) {
         return;
       }
 
-      // Renovar token admin
-      const session = await userSession();
-      const username = session.username;
-
-      const responseToken = await api.post('/v1/sso/token',{      
-        username: 'admin',
-        password: 'admin'   
-      });
-      
-      const response = await api.get(`v1/question/${username}/latest`,{
-        headers:{
-          Authorization: "Bearer "+ responseToken.data.accessToken
-        }   
-      });
-
-      const chat = response.data.find( item => item.questionId == params.chatId);
+      const response = await getRecentsChats();
+      const chat = response.find( item => item.questionId == params.chatId);
 
       console.log("page Chats",chat);
       SetMessages(messages => [...messages,UserMessage(chat.question,lId.current),BotMessage(chat.answer,chat.questionId)]);
       lId.current++;
 
       setShowInput(false);
+
+      // // Renovar token admin
+      // const session = await userSession();
+      // const username = session.username;
+
+      // const responseToken = await api.post('/v1/sso/token',{      
+      //   username: 'admin',
+      //   password: 'admin'   
+      // });
+      
+      // const response = await api.get(`v1/question/${username}/latest`,{
+      //   headers:{
+      //     Authorization: "Bearer "+ responseToken.data.accessToken
+      //   }   
+      // });
 
     }catch (err) {
       console.log("Error in onPageLoad:users/chat/page",err);
