@@ -3,6 +3,7 @@
 import Modal from "react-modal";
 import { useEffect, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import MessageFormatter from "@/app/components/messages/messageFormatter";
 
 function RecipesModal(props) {
 
@@ -50,7 +51,7 @@ function RecipesModal(props) {
                     </div>
                     <div className="text-xl font-bold">Resposta:</div>
                     <div className="h-10/12 px-2 text-base font-normal overflow-y-auto overscroll-contain scroll-custom">
-                        {recipeData.answer}
+                        {MessageFormatter(recipeData.answer)}
                     </div>
                 </div>
             </Modal>

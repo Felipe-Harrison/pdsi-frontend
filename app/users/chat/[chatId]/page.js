@@ -9,6 +9,7 @@ import api from "@/app/api/api";
 import { userSession } from "@/app/api/auth/customSession";
 import DotLoading from "@/app/components/loading/dotLoading/dotLoading";
 import { getRecentsChats } from "@/app/components/layout/sidebar/sidebarItens";
+import MessageFormatter from "@/app/components/messages/messageFormatter";
 
 export default function Chat({ params }) {
 
@@ -39,7 +40,11 @@ export default function Chat({ params }) {
       const chat = response.find( item => item.questionId == params.chatId);
 
       console.log("page Chats",chat);
-      SetMessages(messages => [...messages,UserMessage(chat.question,lId.current),BotMessage(chat.answer,chat.questionId)]);
+      SetMessages(messages => [
+        ...messages,
+        UserMessage(chat.question,lId.current),
+        BotMessage(MessageFormatter(chat.answer),chat.questionId)
+      ]);
       lId.current++;
 
       setShowInput(false);
@@ -91,7 +96,7 @@ export default function Chat({ params }) {
     <div className="flex flex-col w-full">
       <div className="min-h-chat">
         {messages.length ? (
-          messages.map( message => (message))
+          messages.map( message => message)
         ) : (
           <div className="min-h-chat flex justify-center items-center font-bold text-text">Envie uma mensagem para começar</div>
         )}
