@@ -98,7 +98,7 @@ export default function Cadastro({tooglePage}) {
             },
             {
                 'validation': /[\W]/, //Special Char
-                'text': 'Pelo menos um caracter especial',
+                'text': 'Pelo menos um caracter especial (Ex: @.-_!)',
             },
             {
                 'validation': /[0-9]/, //Numero

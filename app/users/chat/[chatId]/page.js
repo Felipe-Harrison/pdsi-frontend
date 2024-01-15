@@ -8,6 +8,7 @@ import { isUserBase } from "@/app/api/auth/customSession";
 import api from "@/app/api/api";
 import { userSession } from "@/app/api/auth/customSession";
 import DotLoading from "@/app/components/loading/dotLoading/dotLoading";
+import MessageFormatter from "@/app/components/messages/messageFormatter";
 
 export default function Chat({ params }) {
 
@@ -52,7 +53,11 @@ export default function Chat({ params }) {
       const chat = response.data.find( item => item.questionId == params.chatId);
 
       console.log("page Chats",chat);
-      SetMessages(messages => [...messages,UserMessage(chat.question,lId.current),BotMessage(chat.answer,chat.questionId)]);
+      SetMessages(messages => [
+        ...messages,
+        UserMessage(chat.question,lId.current),
+        BotMessage(MessageFormatter(chat.answer),chat.questionId)
+      ]);
       lId.current++;
 
       setShowInput(false);
