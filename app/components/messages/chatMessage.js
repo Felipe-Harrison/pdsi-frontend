@@ -1,7 +1,8 @@
-import { HeartIcon,ShareIcon, EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import { useState,useRef } from "react";
 import { useOnClickOutside, } from "usehooks-ts";
-import SaveModal from "../../users/modal/save/page"
+
+import SaveModal from "../../components/modal/save/page";
+import { HeartIcon,ShareIcon, EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
 const ChatMessage = (id,msg,styleCustom,children) => {
 
@@ -47,46 +48,52 @@ export const BotMessage = (msg, id) => {
 const FlyingMenu = ({id}) => {
 
     const [isOpen, setIsOpen] = useState(false);
+    function toggleOpen() {
+        setIsOpen(!isOpen);
+    };
+    
     const refMenu = useRef(null);
-
     useOnClickOutside(refMenu, (e) => {
         setIsOpen(false);
     });
 
+    // Modal Control
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
     const openModal = () => {
         setModalIsOpen(true);
-    }
-
+    };
     const closeModal = () => {
         setModalIsOpen(false);
-    }
+    };
 
     return (
         <div>
-        <div className="relative flex flex-col">
-            <button onClick={() => setIsOpen(!isOpen)} className="self-end">
-                <EllipsisHorizontalIcon className="w-4 w-4"/>
-            </button>
-            {isOpen && (
-                <div className="
-                    absolute -top-16 -right-8 w-max px-2 py-1 rounded-lg
-                    bg-white border border-gray-200 shadow-md
-                "
-                ref={refMenu}
-                >
-                    <button className="w-max p-1" onClick={openModal}>
-                        <HeartIcon className="h-6 w-6 transition duration-200 hover:fill-invalid"/>
-                    </button>
-                    <button className="w-max p-1">
-                        <ShareIcon className="h-6 w-6 transition duration-200 hover:fill-success"/>
-                    </button>
-                </div>
-            )}
-        </div>
-        <SaveModal isOpen={modalIsOpen} onRequestClose={closeModal} closeModal={closeModal} messageId={id}/>
+            <SaveModal 
+                isOpen={modalIsOpen} 
+                onRequestClose={closeModal} 
+                closeModal={closeModal} 
+                messageId={id}
+            />
+            <div className="relative flex flex-col">
+                <button onClick={() => toggleOpen()} className="self-end">
+                    <EllipsisHorizontalIcon className="w-4 w-4"/>
+                </button>
+                {isOpen && (
+                    <div className="
+                        absolute -top-16 -right-8 w-max px-2 py-1 rounded-lg
+                        bg-white border border-gray-200 shadow-md
+                    "
+                    ref={refMenu}
+                    >
+                        <button className="w-max p-1" onClick={openModal}>
+                            <HeartIcon className="h-6 w-6 transition duration-200 hover:fill-invalid"/>
+                        </button>
+                        <button className="w-max p-1">
+                            <ShareIcon className="h-6 w-6 transition duration-200 hover:fill-success"/>
+                        </button>
+                    </div>
+                )}
+            </div>    
         </div>
     )
 }
-

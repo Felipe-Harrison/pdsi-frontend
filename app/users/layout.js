@@ -1,19 +1,17 @@
 'use client';
+
 import { useState,useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
-import { Bars3Icon } from "@heroicons/react/24/outline";
-
-import {XMarkIcon} from "@heroicons/react/24/outline"
-import Navbar from "../components/layout/navbar/Navbar";
 import Sidebar from "../components/layout/sidebar/Sidebar";
+
+import { Bars3Icon } from "@heroicons/react/24/outline";
 
 export default function UsersLayout({children}) {
 
     const [showSidebar,setShowSidebar] = useState(false);
 
     const refSidebar = useRef(null);
-
     useOnClickOutside(refSidebar, (e) => {
         setShowSidebar(false);
     });
@@ -25,7 +23,6 @@ export default function UsersLayout({children}) {
                 <button className={"fixed h-8 w-8 left-3 top-3 z-10 lg:hidden"} onClick={() => setShowSidebar(true)}>
                     <Bars3Icon/>
                 </button> 
-                {/* <Navbar onMenuButtonClick={() => setShowSidebar(!showSidebar)}/> */}
                 {children}
             </div>
         </div>

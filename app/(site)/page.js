@@ -1,33 +1,32 @@
 'use client';
 
-import AuthForm from "./components/AuthForm";
 import { useState } from "react";
 
-import Cadastro from "./components/cadastro";
+import LoginForm from "./components/LogInForm";
+import RegisterForm from "./components/RegisterForm";
 
 export default function Home() {
 
-  const [typeAcess, setTypeAcess] = useState(true);
+  const [typeAccess, setTypeAccess] = useState(true);
 
-  function acess() {
-    setTypeAcess(!typeAcess);
+  function toggleTypeAccess() {
+    setTypeAccess(!typeAccess);
   }
 
   return(
     <div className="w-screen h-screen bg-food-pattern bg-zinc-100 flex items-center justify-center">
       <div className="
         relative
-        w-11/12 h-11/12
-        md:w-9/12
-        bg-white
-        border border-stone-100 drop-shadow-md
-        rounded
+        h-11/12 
+        w-11/12 md:w-9/12
         grid grid-cols-2 gap-0
+        bg-white
+        drop-shadow-md rounded
       ">
-        {typeAcess ? (
-          <AuthForm tooglePage={() => acess()}/>
+        {typeAccess ? (
+          <LoginForm tooglePage={() => toggleTypeAccess()}/>
         ): (
-          <Cadastro tooglePage={() => acess()}/>
+          <RegisterForm tooglePage={() => toggleTypeAccess()}/>
         )}
       </div>
     </div>

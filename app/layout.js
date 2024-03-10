@@ -1,12 +1,12 @@
 'use client';
 
-import './globals.css'
-import { Inter } from 'next/font/google'
+import {NextUIProvider} from "@nextui-org/react";
 
 import ToasterContext from './context/ToasterContext'
 import AuthContext from './context/AuthContext'
 
-import {NextUIProvider} from "@nextui-org/react";
+import './globals.css'
+import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +20,14 @@ export default function RootLayout({ children }) {
     <html lang="pt-BR">
       <head>
         <title>Chef Virtual - Assistente culinário</title>
-        <meta name="description" content='O Chef Virtual é um sistema culinário inovador projetado para auxiliar cozinheiros, sejam eles amadores ou profissionais. Nosso Chef Virtual se adapta às suas necessidades e dúvidas, tornando sua jornada culinária mais deliciosa e eficiente. Faça perguntas sobre tópicos culinários, compartilhe com seus amigos, salve as suas melhores receitas.'/>
+        <meta 
+          name="description" 
+          content='O Chef Virtual é um sistema culinário inovador projetado para auxiliar cozinheiros, sejam eles amadores ou profissionais. Nosso Chef Virtual se adapta às suas necessidades e dúvidas, tornando sua jornada culinária mais deliciosa e eficiente. Faça perguntas sobre tópicos culinários, compartilhe com seus amigos, salve as suas melhores receitas.'
+        />
+        <meta 
+          name="keywords"
+          content="Chef, Virtual, Ajuda, Cozinha, Receitas, Dicas Culinaria, Culinaria, Como fazer, Receita"
+        />
       </head>
       <body className={inter.className}>
         <NextUIProvider>
@@ -31,5 +38,5 @@ export default function RootLayout({ children }) {
         </NextUIProvider>
       </body>
     </html>
-  )
+  );
 }

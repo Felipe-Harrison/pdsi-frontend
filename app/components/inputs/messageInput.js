@@ -1,14 +1,12 @@
-import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
-import classNames from "classnames";
 import { useState } from "react";
+import classNames from "classnames";
+
 import api from "@/app/api/api";
-import axios from "axios";
-import { headers } from "@/next.config";
-import { signIn } from "next-auth/react";
 import { userSession } from "@/app/api/auth/customSession";
 
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 
-export const MessageInput = ({onUserSend,onResponse,newChat}) => {
+export const MessageInput = ({onUserSend,onResponse}) => {
 
     const [userMessage,setUserMessage] = useState();
     const [creativeChefMode,setCreativeChefMode] = useState(false);
@@ -19,20 +17,17 @@ export const MessageInput = ({onUserSend,onResponse,newChat}) => {
         e.preventDefault();
 
         onUserSend(userMessage);
-        setUserMessage(""); // Limpar input
-
+        setUserMessage("");
 
         try {
 
-            const session = await userSession();
-            
             // Renovar token usuario
+            const session = await userSession();
             
             const responseToken = await api.post('/v1/sso/token',{
                 username: session.username,
                 password: session.password
             });
-
 
             const response = await api.post('v1/question',{
                 
@@ -42,26 +37,25 @@ export const MessageInput = ({onUserSend,onResponse,newChat}) => {
             },{
                 headers:{
                     Authorization: "Bearer "+ responseToken.data.accessToken
-                }
-                
+                }  
             }
-            )
+            );
             console.log(response.data);
             onResponse(response.data.answer,response.data.questionId,true);
         
         } catch (err) {
             if(err.response.status == 400){
                 const time = new Date();
-                onResponse("Faça uma pergunta sobre tema culinário",time.getMilliseconds())
+                onResponse("Faça uma pergunta sobre tema culinário",time.getMilliseconds());
             }
             console.error(`Error in sendMessage: ${err}`);
-        }
+        };
         
     }
 
     return(
         <div className={`
-            bg-text 
+            bg-contentBlack 
             text-white
             bottom-0 
             sticky 

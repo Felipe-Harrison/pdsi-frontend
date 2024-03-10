@@ -1,4 +1,3 @@
-import { useState } from "react";
 import classNames from "classnames";
 import { CheckIcon,XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -16,7 +15,7 @@ const PswValidationItem = ({isOk,text}) => {
             {isOk ? <CheckIcon className={iconSize}/> : <XMarkIcon className={iconSize}/>}
             {text}
         </p>
-    )
+    );
 };
 
 export const PopOver = ({isOpen,btn,pswValidation}) => {

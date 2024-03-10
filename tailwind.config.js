@@ -1,5 +1,17 @@
 const { nextui } = require('@nextui-org/react');
 
+// TEXT THEME
+const lightText = '#212121';
+const darkText = '#f5f7f8';
+
+// BACKGROUND THEME
+const darkBg = "#1c1c1c";
+const lightBg = "#f2f5fa";
+
+// CONTENT THEME
+const blackContent = "#3c3c3c";
+const whiteContent = "#f8fafc";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -15,7 +27,11 @@ module.exports = {
         primary: "#FF6347", // Orange
         secondary: "#F9A825", // Mostard
         confirm: "#0EB36D", // Green
-        text: "#332E2E",
+        text: {
+          light: "#332E2E",
+          dark:  "#332E2E"
+        },
+        contentBlack: "#332E2E",
         success: "#00C853",
         invalid: "#D32F2F",
         warning: "#E9D502",
@@ -52,4 +68,5 @@ module.exports = {
     },
   },
   plugins: [nextui],
+  darkMode: 'media'
 }

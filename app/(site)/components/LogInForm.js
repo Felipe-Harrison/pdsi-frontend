@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-
-import { toast } from 'react-hot-toast';
-
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 import { Logo } from "@/public/image/Logo";
 
-export const AuthForm = ({tooglePage}) => {
+import Spinner from '@/app/components/loading/spinner/Spinner';
+
+export const LoginForm = ({tooglePage}) => {
 
     const session = useSession();
 
@@ -17,6 +17,9 @@ export const AuthForm = ({tooglePage}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const [isLoading,setIsloading] = useState(false);
+
+    // Controle Login
     useEffect(() => {
         if (session.status == 'authenticated') {
             router.push('/users');
@@ -25,6 +28,7 @@ export const AuthForm = ({tooglePage}) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setIsloading(true)
 
         signIn('credentials', {
             email: username,
@@ -39,15 +43,17 @@ export const AuthForm = ({tooglePage}) => {
                 toast.success("Usuario logado com sucesso!");
                 router.push('/users');
             }
+        }).finally( () => {
+            setIsloading(false)
         });
     }
 
     return (
         <>
             <div className='
+                flex flex-col items-center justify-center wrap
                 bg-orange bg-food-pattern 
                 rounded-l
-                flex flex-col items-center justify-center wrap
                 text-center font-bold text-2xl text-white
             '>
                 <p className='mx-2'>Precisou de ajuda na Cozinha?</p>
@@ -60,6 +66,7 @@ export const AuthForm = ({tooglePage}) => {
                 <form onSubmit={handleSubmit} className='flex flex-col justify-around items-center'>
                     {/* usuário */}
                     <input 
+                        autoFocus
                         type="text" 
                         onChange={(event) => { setUsername(event.target.value) }} 
                         required
@@ -87,17 +94,18 @@ export const AuthForm = ({tooglePage}) => {
                         placeholder="Senha" 
                     />
                     <button 
-                    type='submit'
-                    className='
-                        w-5/12 h-12
-                        mt-8
-                        text-center text-neutral-100 text-xl font-bold
-                        bg-emerald-500 rounded-lg shadow border
-                        transition duration-200
-                        hover:bg-emerald-800
-                    '
+                        type='submit'
+                        className='
+                            w-5/12 h-12
+                            mt-8
+                            text-center text-neutral-100 text-lg font-bold
+                            bg-emerald-500 rounded-lg shadow border
+                            transition duration-200
+                            hover:bg-emerald-800
+                        '
+                        disabled={isLoading}
                     >
-                        Entrar
+                        {isLoading ? (<><Spinner/> <span className='ml-2'>Verificando...</span></>) : "Entrar"}
                     </button>
                 </form>
                 <div>
@@ -132,4 +140,4 @@ export const AuthForm = ({tooglePage}) => {
     )
 }
 
-export default AuthForm;
+export default LoginForm;

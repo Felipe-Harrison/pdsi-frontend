@@ -24,3 +24,11 @@ html,body,:root{
 .scroll-custom::-webkit-scrollbar-thumb:hover {
     background: #c0a0b9;
 }
+
+button:disabled {
+    opacity: 50%;
+    cursor: not-allowed;
+}
+button:hover {
+    cursor: pointer;
+}

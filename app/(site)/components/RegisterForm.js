@@ -1,19 +1,18 @@
-import { toast } from 'react-hot-toast';
-import api from '@/app/api/api';
-import axios from 'axios';
-import { Image } from 'next/image';
-import { signIn, useSession } from "next-auth/react";
 import classNames from 'classnames';
-import { PopOver } from '@/app/components/messages/pswPopover';
 import { useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
+
+import api from '@/app/api/api';
+import { PopOver } from '@/app/components/messages/pswPopover';
 import { Spinner } from "@/app/components/loading/spinner/Spinner";
 
-export default function Cadastro({tooglePage}) {
+export default function RegisterForm({tooglePage}) {
     
     const [isLoading,setIsloading] = useState(false);
+
     // Password Validation
-    const [openPopover,setOpenPopOver] = useState(false);
     const pswField = useRef(null);
+    const [openPopover,setOpenPopOver] = useState(false);
     const [passwordRequisites,setPasswordRequisites] = useState(passwordValidation(''));
     const [pswValid,setPswValid] = useState(true);
     const [passwordValue,setPasswordValue] = useState('');
@@ -24,10 +23,10 @@ export default function Cadastro({tooglePage}) {
         let isSuccess = false;
         
         try {
-            
+            // Logar como admin e completar o Header
             const responseToken = await api.post('/v1/sso/token',{
-                username: 'admin',
-                password: 'admin' 
+                username: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_USER,
+                password: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_PSW
             });
 
             const response = await api.post(`v1/sso/user/${userType}`,
@@ -63,18 +62,18 @@ export default function Cadastro({tooglePage}) {
         }
         setIsloading(true);
 
+        
         const formData = new FormData(e.target);
         const formProps = Object.fromEntries(formData);
 
         const userType = formProps.plano;
-        // Logar como admin e completar o Header
-        
+
         const data = {
             username: formProps.username,
             password: formProps.psw
-        }
+        };
 
-        const successRegister = await register(data,userType)
+        const successRegister = await register(data,userType);
 
         if(successRegister) {
             toast.success("Usuario criado com sucesso!");
@@ -87,6 +86,7 @@ export default function Cadastro({tooglePage}) {
     };
 
     function passwordValidation (password) {
+
         const validations = [
             {
                 'validation': /[a-z]/, //Minuscula

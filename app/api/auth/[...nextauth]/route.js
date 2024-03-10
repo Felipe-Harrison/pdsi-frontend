@@ -1,8 +1,8 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
+//import GoogleProvider from "next-auth/providers/google";
+
 import api from "@/app/api/api";
-import { restoreSession, saveUserSession } from "../customSession";
 
 const jwt = require('jsonwebtoken');
 
@@ -49,7 +49,7 @@ export const authOptions = {
                         data
                     );
                     const decoded = jwt.decode(response.data.accessToken);
-                    console.log('Decoded JWT:', decoded);
+                    //console.log('Decoded JWT:', decoded);
 
                     const userData = {
                         id: decoded.sid,
@@ -60,10 +60,8 @@ export const authOptions = {
                         plusData: "23/10/2023",
                         nameSymbol: getNameAbreviation(decoded.preferred_username),
                         plus: getTypeUser(decoded.realm_access.roles), 
-                    }
+                    };
 
-                    //saveUserSession(credentials.email,credentials.password,decoded.exp);
-                    //restoreSession();
                     return Promise.resolve(userData);
 
                 }catch(err) {

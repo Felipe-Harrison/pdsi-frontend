@@ -1,14 +1,21 @@
 'use client';
 
-import { UserMessage,BotMessage } from "@/app/components/messages/chatMessage"
-import { MessageInput } from "@/app/components/inputs/messageInput"
-import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { isUserBase } from "@/app/api/auth/customSession";
+import { 
+  useCallback, 
+  useEffect, 
+  useRef, 
+  useState 
+} from "react";
+
 import api from "@/app/api/api";
 import { userSession } from "@/app/api/auth/customSession";
-import DotLoading from "@/app/components/loading/dotLoading/dotLoading";
+import { isUserBase } from "@/app/api/auth/customSession";
+import { MessageInput } from "@/app/components/inputs/messageInput";
+import { UserMessage, BotMessage } from "@/app/components/messages/chatMessage";
 import MessageFormatter from "@/app/components/messages/messageFormatter";
+
+import DotTyping from "@/app/components/loading/dotTyping/dotTyping";
 
 export default function Chat({ params }) {
 
@@ -28,20 +35,20 @@ export default function Chat({ params }) {
       const userType = await isUserBase();
       if(userType && params.chatId != 'new') {
         router.replace("/users");
-      }
+      };
 
       // Buscar mensagens
       if(params.chatId == 'new') {
         return;
-      }
+      };
 
       // Renovar token admin
       const session = await userSession();
       const username = session.username;
 
       const responseToken = await api.post('/v1/sso/token',{      
-        username: 'admin',
-        password: 'admin'   
+        username: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_USER,
+        password: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_PSW  
       });
       
       const response = await api.get(`v1/question/${username}/latest`,{
@@ -52,7 +59,6 @@ export default function Chat({ params }) {
 
       const chat = response.data.find( item => item.questionId == params.chatId);
 
-      console.log("page Chats",chat);
       SetMessages(messages => [
         ...messages,
         UserMessage(chat.question,lId.current),
@@ -98,7 +104,7 @@ export default function Chat({ params }) {
         ) : (
           <div className="min-h-chat flex justify-center items-center font-bold text-text">Envie uma mensagem para começar</div>
         )}
-        {isLoading && (<DotLoading/>)}
+        {isLoading && (<DotTyping/>)}
       </div>
       {showinput ? (
         <MessageInput onUserSend={addUserMessage} onResponse={addBotMessage} newChat={params.chatId == 'new'}/>

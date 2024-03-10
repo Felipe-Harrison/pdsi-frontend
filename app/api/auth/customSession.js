@@ -1,5 +1,5 @@
 import { getSession} from "next-auth/react";
-import { setCookie,hasCookie } from "cookies-next";
+import { hasCookie } from "cookies-next";
 var cookie = require('cookie-cutter');
 
 export const userSession = async () => {

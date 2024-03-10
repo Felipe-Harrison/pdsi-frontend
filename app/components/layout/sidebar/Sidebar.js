@@ -1,59 +1,62 @@
 'use client';
-import classNames from "classnames";
-import SidebarItem from "./SidebarItem";
-import { useSession,getSession} from "next-auth/react";
-import { userSession } from "@/app/api/auth/customSession";
-import {useRoutes,useChats,getChats} from "./sidebarItens";
 
+import classNames from "classnames";
+import { useEffect,useState } from "react";
+import { usePathname } from "next/navigation";
+
+import SidebarItem from "./SidebarItem";
+import { useRoutes, getChats} from "./sidebarItens";
+import { userSession } from "@/app/api/auth/customSession";
+
+import VipModal from "../../../components/modal/vip/page"
+import Spinner from "../../loading/spinner/Spinner";
 import { LogoWide} from "@/public/image/LogoWide";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { useEffect,useState } from "react";
-
-import VipModal from "../../../users/modal/vip/page"
-import { usePathname } from "next/navigation";
 
 const Sidebar = ({isOpen,reference,closeSidebar}) => {
 
     const pathname = usePathname();
-    
     const routes = useRoutes();
-    // const chats = useChats();
 
     const [chats,setChats] = useState([]);
-
     const [UserData,setUserData] = useState({});
 
     const [isLoading,setIsLoading] = useState(true);
 
-    const getUserData = async () => {
-        setUserData(await userSession());
-    }
-
-    const getRecentsChats = async (pathname) => {
-        console.log("Atualizando side")
-        setChats(await getChats(pathname));
-    }
-
-    useEffect( () => {
-        getRecentsChats(pathname);
-    },[pathname])
-
-    useEffect( () => {
-        getUserData();
-    },[]);
-
+    // Modal Control
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
     const openModal = () => {
         setModalIsOpen(true);
     }
-
     const closeModal = () => {
         setModalIsOpen(false);
     }
 
+    // Utils functions
+    const getUserData = async () => {
+        setUserData(await userSession());
+    };
+
+    const getRecentsChats = async (pathname) => {
+        setChats(await getChats(pathname));
+        setIsLoading(false);
+    };
+
+    // On pathname load
+    useEffect( () => {
+        getRecentsChats(pathname);
+    },[pathname]);
+
+    // On load
+    useEffect( () => {
+        getUserData();
+    },[]);
+
     return (
         <>
+        {modalIsOpen && (
+            <VipModal isOpen={modalIsOpen} onRequestClose={closeModal} closeModal={closeModal} />
+        )}
         <div
             className={classNames({
                 "flex flex-col": true, // layout
@@ -87,7 +90,11 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                     onClick={() => {}}
                 />
                 <div className="py-2 flex flex-col gap-2 h-41vh overflow-y-auto border-b border-pink-100 overscroll-contain scroll-custom">
-                    { chats.length ? chats.map( (item,index) => { return (
+                    { isLoading ? (
+                        <span>
+                            <Spinner/> <span className="ml-2 text-sm text-text text-center">Procurando conselhos...</span>
+                        </span>
+                    ) : chats.length ? chats.map( (item,index) => { return (
                         <SidebarItem
                             key={index}
                             index={index}
@@ -165,9 +172,6 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                 </div>
             </nav>
         </div>
-        {modalIsOpen && (
-            <VipModal isOpen={modalIsOpen} onRequestClose={closeModal} closeModal={closeModal} />
-        )}
         </>
     );
 };

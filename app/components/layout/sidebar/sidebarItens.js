@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { 
+    useEffect, 
+    useState, 
+    useMemo 
+} from "react";
+import { signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
+
+import api from "@/app/api/api";
+import { userSession } from "@/app/api/auth/customSession";
+
 import {
     ChatBubbleLeftIcon,
     StarIcon,
     ArrowLeftOnRectangleIcon
 } from "@heroicons/react/24/outline";
-
-import { useMemo } from "react";
-import { usePathname } from "next/navigation";
-
-import { signOut } from "next-auth/react";
-import api from "@/app/api/api";
-import { userSession } from "@/app/api/auth/customSession";
 
 function Chat (name,id,pathname){  
 
@@ -33,8 +36,8 @@ const getRecentsChats = async () => {
 
         // Renovar token admin
         const responseToken = await api.post('/v1/sso/token',{      
-            username: 'admin',
-            password: 'admin'   
+            username: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_USER,
+            password: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_PSW 
         });
         
         const response = await api.get(`v1/question/${username}/latest`,{
@@ -48,15 +51,15 @@ const getRecentsChats = async () => {
     } catch (err) {
 
         console.error(err);
-        if(err.response.status == 500) {
+        if(err.status == 500) {
             console.error("ERROR::500: Não foi encontrado nenhum chat")
         }
         return [];
-    }
-}
+    };
+};
 
 export const getChats = async (pathname) => {
-    const questions = await getRecentsChats()
+    const questions = await getRecentsChats();
     let aux = []
     aux = questions.map( question => (
         Chat(`${question.question.substring(0,30)}`,question.questionId,pathname)
@@ -73,7 +76,7 @@ export const useChats = () => {
 
     useEffect(()=>{
         const getChats = async() => {
-            const questions = await getRecentsChats()
+            const questions = await getRecentsChats();
             setQuestions(questions);
         }
         getChats();
@@ -85,7 +88,7 @@ export const useChats = () => {
             Chat(`${question.question.substring(0,20)}`,question.questionId,pathname)
         ));
         setChats(aux);
-    } ,[questions,pathname])
+    } ,[questions,pathname]);
 
     return chats;
 };
