@@ -6,7 +6,7 @@ import { LockClosedIcon } from "@heroicons/react/24/outline";
 const SidebarItem = ({index,item,onClick,typeUser=true}) => {
 
     return(
-        <Link 
+        <Link
             key={index} 
             href={!typeUser ? "" : { pathname: item.href, query: item.title ? { t: item.title } : {} }}
             onClick={() => {

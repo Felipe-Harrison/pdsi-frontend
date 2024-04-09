@@ -17,6 +17,8 @@ import MessageFormatter from "@/app/components/messages/messageFormatter";
 
 import DotTyping from "@/app/components/loading/dotTyping/dotTyping";
 
+import { getRecentsChats } from "@/app/components/layout/sidebar/sidebarItens";
+
 export default function Chat({ params }) {
 
   const scrollDiv = useRef();
@@ -43,21 +45,24 @@ export default function Chat({ params }) {
       };
 
       // Renovar token admin
-      const session = await userSession();
-      const username = session.username;
+      // const session = await userSession();
+      // const username = session.username;
 
-      const responseToken = await api.post('/v1/sso/token',{      
-        username: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_USER,
-        password: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_PSW  
-      });
+      // const responseToken = await api.post('/v1/sso/token',{      
+      //   username: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_USER,
+      //   password: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_PSW  
+      // });
       
-      const response = await api.get(`v1/question/${username}/latest`,{
-        headers:{
-          Authorization: "Bearer "+ responseToken.data.accessToken
-        }   
-      });
+      // const response = await api.get(`v1/question/${username}/latest`,{
+      //   headers:{
+      //     Authorization: "Bearer "+ responseToken.data.accessToken
+      //   }   
+      // });
 
-      const chat = response.data.find( item => item.questionId == params.chatId);
+      // const chat = response.data.find( item => item.questionId == params.chatId);
+
+      const response = await getRecentsChats();
+      const chat = response.find( item => item.questionId == params.chatId);
 
       SetMessages(messages => [
         ...messages,
@@ -102,7 +107,7 @@ export default function Chat({ params }) {
         {messages.length ? (
           messages.map( message => (message))
         ) : (
-          <div className="min-h-chat flex justify-center items-center font-bold text-text">Envie uma mensagem para começar</div>
+          <div className="min-h-chat flex justify-center items-center font-bold text-text" id="msg-newchat">Envie uma mensagem para começar</div>
         )}
         {isLoading && (<DotTyping/>)}
       </div>

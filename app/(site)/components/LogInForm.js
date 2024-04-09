@@ -51,10 +51,11 @@ export const LoginForm = ({tooglePage}) => {
     return (
         <>
             <div className='
-                flex flex-col items-center justify-center wrap
+                hidden
+                md:flex flex-col items-center justify-center wrap
                 bg-orange bg-food-pattern 
                 rounded-l
-                text-center font-bold text-2xl text-white
+                text-center font-bold text-2xl text-white    
             '>
                 <p className='mx-2'>Precisou de ajuda na Cozinha?</p>
                 <p>Deixa com o Chef!</p>
@@ -78,6 +79,8 @@ export const LoginForm = ({tooglePage}) => {
                             border-b-2 border-zinc-800 outline-none
                         "
                         placeholder="Usuário" 
+                        autoComplete='current-username'
+                        id='username-input'
                     />
                     {/* senha */}
                     <input 
@@ -92,11 +95,13 @@ export const LoginForm = ({tooglePage}) => {
                             border-b-2 border-zinc-800 outline-none
                         "
                         placeholder="Senha" 
+                        autoComplete='current-password'
+                        id='password-input'
                     />
                     <button 
                         type='submit'
                         className='
-                            w-5/12 h-12
+                            w-8/12 md:w-5/12 h-12
                             mt-8
                             text-center text-neutral-100 text-lg font-bold
                             bg-emerald-500 rounded-lg shadow border
@@ -104,6 +109,7 @@ export const LoginForm = ({tooglePage}) => {
                             hover:bg-emerald-800
                         '
                         disabled={isLoading}
+                        id='btn-login'
                     >
                         {isLoading ? (<><Spinner/> <span className='ml-2'>Verificando...</span></>) : "Entrar"}
                     </button>
@@ -123,14 +129,15 @@ export const LoginForm = ({tooglePage}) => {
                         type='button' 
                         onClick={() => tooglePage()}
                         className="
-                        w-fit h-12
+                        w-8/12 md:w-fit h-12
                         md:w-5/12
                         mt-4 px-2
                         text-center text-neutral-100 text-xl font-bold
                         transition duration-200
                         bg-orange rounded-lg shadow border
                         hover:bg-yellow-900
-                    "
+                        "
+                        id='btn-register'
                     >
                         Cadastre-se
                     </button>

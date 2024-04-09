@@ -75,8 +75,8 @@ const FlyingMenu = ({id}) => {
                 messageId={id}
             />
             <div className="relative flex flex-col">
-                <button onClick={() => toggleOpen()} className="self-end">
-                    <EllipsisHorizontalIcon className="w-4 w-4"/>
+                <button onClick={() => toggleOpen()} className="self-end" id="btn-popup-msg">
+                    <EllipsisHorizontalIcon className="w-8 w-8"/>
                 </button>
                 {isOpen && (
                     <div className="
@@ -85,7 +85,7 @@ const FlyingMenu = ({id}) => {
                     "
                     ref={refMenu}
                     >
-                        <button className="w-max p-1" onClick={openModal}>
+                        <button className="w-max p-1" onClick={openModal} id="btn-favorite-msg">
                             <HeartIcon className="h-6 w-6 transition duration-200 hover:fill-invalid"/>
                         </button>
                         <button className="w-max p-1">

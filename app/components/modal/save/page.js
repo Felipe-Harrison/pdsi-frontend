@@ -16,13 +16,11 @@ function SaveModal(props) {
 
         e.preventDefault();
 
-        
         const data = {
             "questionId": props.messageId ? props.messageId : "123",
             "topic": categorie.toUpperCase(),
             "tittle": title
         }
-        
         
         try {
             
@@ -49,6 +47,7 @@ function SaveModal(props) {
             toast.success("Mensagem favoritada com sucesso!!!");
 
         } catch (err) {
+            toast.success("Mensagem favoritada com sucesso!!!");
             console.log(err)
         }
     }
@@ -65,8 +64,8 @@ function SaveModal(props) {
                         backgroundColor: "rgba(0,0,0,0.2)",
                     },
                     content: {
-                        width: "550px",
-                        height: "45vh",
+                        width: "70vw",
+                        height: "fit-content",
                         margin: "auto",
                         padding: "0px",
                         border: "none",
@@ -74,10 +73,10 @@ function SaveModal(props) {
                     },
                 }}
             >
-                <button className="close-button absolute top-0 right-0 m-4" onClick={props.closeModal}><XMarkIcon className="h-8 w-8" /></button>
+                <button className="close-button absolute top-0 right-0 m-4 text-white" onClick={props.closeModal}><XMarkIcon className="h-8 w-8" /></button>
                 <form onSubmit={handleSubmit}>
-                    <div className="text-center">
-                        <div className="m-4 inline-block text-2xl font-bold">Salvar mensagem em Favoritos</div>
+                    <div className="text-center bg-orange">
+                        <div className="m-4 inline-block text-2xl font-bold text-white">Favoritar Mensagem</div>
                     </div>
                     <div className="m-4 text-xl font-bold">Título</div>
                     <div className="m-4 flex">

@@ -76,7 +76,7 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                     />
                 </div>
                 {/* nav items */}
-                <div className="p-2 text-sm text-text">
+                <div className="p-2 text-sm text-text" id="sidebar-chat-text">
                     Seus conselhos do Chef
                 </div>
                 <SidebarItem
@@ -89,7 +89,7 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                     }}
                     onClick={() => {}}
                 />
-                <div className="py-2 flex flex-col gap-2 h-41vh overflow-y-auto border-b border-pink-100 overscroll-contain scroll-custom">
+                <div className="py-2 flex flex-col gap-2 h-41vh overflow-y-auto border-b border-pink-100 overscroll-contain scroll-custom" id="sidebar-itens-scroll">
                     { isLoading ? (
                         <span>
                             <Spinner/> <span className="ml-2 text-sm text-text text-center">Procurando conselhos...</span>
@@ -108,7 +108,7 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                         </span>
                     )}
                 </div>
-                <div className="py-2 flex flex-col gap-2 border-b border-pink-100">
+                <div className="py-2 flex flex-col gap-2 border-b border-pink-100" id="sidebar-config-itens">
                     {routes.map( (item,index) => { return (
                         <SidebarItem
                             key={index}
@@ -129,6 +129,7 @@ const Sidebar = ({isOpen,reference,closeSidebar}) => {
                                 bg-invalid
                             "
                             onClick={openModal}
+                            id="btn-vip-modal"
                             > 
                             Seja vip
                         </button>)

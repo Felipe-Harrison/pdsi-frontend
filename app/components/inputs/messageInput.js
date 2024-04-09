@@ -44,6 +44,7 @@ export const MessageInput = ({onUserSend,onResponse}) => {
             onResponse(response.data.answer,response.data.questionId,true);
         
         } catch (err) {
+            onResponse(userMessage,userMessage,true);
             if(err.response.status == 400){
                 const time = new Date();
                 onResponse("Faça uma pergunta sobre tema culinário",time.getMilliseconds());
@@ -93,6 +94,7 @@ export const MessageInput = ({onUserSend,onResponse}) => {
                         outline outline-0
                         transition duration-500
                     "
+                    id="input-chat"
                 />
                 <button 
                     type="submit" 

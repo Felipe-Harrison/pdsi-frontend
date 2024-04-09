@@ -30,7 +30,7 @@ export const PopOver = ({isOpen,btn,pswValidation}) => {
     return(
         <>
             {isOpen && (
-                <div className="absolute top-full mt-3 bg-white border border-blue-200 rounded p-4 shadow-md w-max">
+                <div className="absolute top-full mt-3 bg-white border border-gray-200 rounded p-4 shadow-md w-max" id="psw-feedback">
                     <p className="text-start">Sua senha deve conter: </p>
                     {pswValidation.map( validation => (
                         <PswValidationItem key={validation.text} isOk={validation.valid} text={validation.text}/>
@@ -41,7 +41,8 @@ export const PopOver = ({isOpen,btn,pswValidation}) => {
                         border-r-transparent border-r-8
                         border-b-inherit border-b-8
                         -translate-x-1/2
-                    `}/>
+                    `} 
+                    />
                 </div>
             )}
         </>

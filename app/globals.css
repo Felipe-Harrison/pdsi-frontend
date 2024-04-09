@@ -32,3 +32,7 @@ button:disabled {
 button:hover {
     cursor: pointer;
 }
+
+::-ms-reveal {
+    display: none;
+}

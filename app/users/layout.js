@@ -20,7 +20,7 @@ export default function UsersLayout({children}) {
         <div className="grid grid-cols-4 lg:grid-cols-5 bg-zinc-100">
             <Sidebar isOpen={showSidebar} reference={refSidebar} closeSidebar={() => setShowSidebar(false)}/>
             <div className="col-span-4 bg-food-pattern">
-                <button className={"fixed h-8 w-8 left-3 top-3 z-10 lg:hidden"} onClick={() => setShowSidebar(true)}>
+                <button id='btn-sidebar' className={"fixed h-8 w-8 left-3 top-3 z-10 lg:hidden"} onClick={() => setShowSidebar(true)}>
                     <Bars3Icon/>
                 </button> 
                 {children}

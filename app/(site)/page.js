@@ -14,12 +14,12 @@ export default function Home() {
   }
 
   return(
-    <div className="w-screen h-screen bg-food-pattern bg-zinc-100 flex items-center justify-center">
+    <div className="w-screen h-screen bg-food-pattern bg-orange md:bg-zinc-100 flex items-center justify-center">
       <div className="
         relative
         h-11/12 
         w-11/12 md:w-9/12
-        grid grid-cols-2 gap-0
+        md:grid grid-cols-2 gap-0
         bg-white
         drop-shadow-md rounded
       ">
