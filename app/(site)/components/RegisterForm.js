@@ -42,7 +42,7 @@ export default function RegisterForm({tooglePage}) {
             isSuccess = true
 
         } catch (err) {
-            console.log(err);
+            console.log("RegisterError::", err);
         } finally {
             return isSuccess;
         }

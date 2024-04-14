@@ -9,7 +9,7 @@ describe( "Login Page", () => {
         // Arrange
         
         // Act
-        cy.login("admin","admin")
+        cy.login('admin1','Admin@123');
 
         // Assert
         cy.url().should('include', '/users')

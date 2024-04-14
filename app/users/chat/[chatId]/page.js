@@ -95,7 +95,7 @@ export default function Chat({ params }) {
   const addBotMessage = (message,id,block) => {
     setIsLoading(false);
     lId.current++;
-    SetMessages(messages => [...messages,BotMessage("Chef: "+ message,id)]);
+    SetMessages(messages => [...messages,BotMessage(MessageFormatter(message),id)]);
     if(block) {
       setShowInput(false);
     }

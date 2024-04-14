@@ -26,12 +26,11 @@ function SaveModal(props) {
             
             const session = await userSession();
             const username = session.username;
-            console.log("Data",data);
 
             // Renovar token admin
             const responseToken = await api.post('/v1/sso/token',{      
-                username: 'admin',
-                password: 'admin'   
+                username: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_USER,
+                password: process.env.NEXT_PUBLIC_JWT_ADM_REFRESH_PSW 
             });
             
             const response = await api.put(`/v1/question/${username}/favorites`,
@@ -42,12 +41,14 @@ function SaveModal(props) {
                 }   
             });
 
-            console.log(response);
+            if(response.status == 204) {
+                toast.success("Mensagem favoritada com sucesso!!!");
+                props.closeModal();
+            }
 
-            toast.success("Mensagem favoritada com sucesso!!!");
 
         } catch (err) {
-            toast.success("Mensagem favoritada com sucesso!!!");
+            toast.error("Não foi possível salvar favoritos!");
             console.log(err)
         }
     }
@@ -86,6 +87,7 @@ function SaveModal(props) {
                             onChange={ e => {
                                 setTitle(e.target.value);
                             }}
+                            required
                             value={title}
                         />
                     </div>
@@ -97,6 +99,7 @@ function SaveModal(props) {
                             onChange={ e => {
                                 setCategorie(e.target.value);
                             }}
+                            required
                             value={categorie}
                         >
                             <option></option>

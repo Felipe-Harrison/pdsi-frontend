@@ -3,7 +3,7 @@ describe("Favorites", () => {
     const SCROLL_FAVORITES = 'div#favorites-itens-scroll'
     beforeEach( () => {
         cy.visit('/');
-        cy.login('admin','admin');
+        cy.login('admin1','Admin@123');
         cy.acessarFavoritos();
     });
 

@@ -32,7 +32,7 @@ export const MessageInput = ({onUserSend,onResponse}) => {
             const response = await api.post('v1/question',{
                 
                 message: userMessage,
-                randomness: creativeChefMode ? 0.9 : 0.5
+                randomness: creativeChefMode ? 0.7 : 0
                 
             },{
                 headers:{
@@ -44,7 +44,6 @@ export const MessageInput = ({onUserSend,onResponse}) => {
             onResponse(response.data.answer,response.data.questionId,true);
         
         } catch (err) {
-            onResponse(userMessage,userMessage,true);
             if(err.response.status == 400){
                 const time = new Date();
                 onResponse("Faça uma pergunta sobre tema culinário",time.getMilliseconds());
@@ -83,7 +82,7 @@ export const MessageInput = ({onUserSend,onResponse}) => {
                     autoCapitalize="sentences"
                     autoFocus
                     required
-                    autoComplete="not"
+                    autoComplete="no-complete"
                     className="
                         p-2
                         w-11/12

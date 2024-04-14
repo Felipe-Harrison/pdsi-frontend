@@ -45,6 +45,7 @@ export const authOptions = {
                 };
 
                 try {
+                    
                     const response = await api.post('/v1/sso/token',
                         data
                     );
@@ -65,50 +66,51 @@ export const authOptions = {
                     return Promise.resolve(userData);
 
                 }catch(err) {
+                    console.log(err);
                     if(err.response) {
                         console.log(err.response.data);
                     }
                     
-                    const users = [
-                        {
-                            id: 1,
-                            username: "admin",
-                            password: "admin",
-                            name: "Apenas um usuario qualquer",
-                            email: "admin@example.com",
-                            plusData: "23/10/2023",
-                            nameSymbol: getNameAbreviation("Apenas um usuario qualquer"),
-                            plus: true,
-                        },
-                        {
-                            id: 2,
-                            username: "test",
-                            password: "test@123",
-                            name: "Teste qualquer",
-                            email: "teste@example.com",
-                            plusData: null,
-                            nameSymbol: getNameAbreviation("Teste qualquer"),
-                            plus: false,
-                        },
-                        {
-                            id: 3,
-                            username: "test2",
-                            password: "test@123",
-                            name: "2Teste qualquer",
-                            email: "test2@example.com",
-                            plusData: null,
-                            nameSymbol: getNameAbreviation("2Teste qualquer"),
-                            plus: false,
-                        }
-                    ];
+                    // const users = [
+                    //     {
+                    //         id: 1,
+                    //         username: "admin",
+                    //         password: "admin",
+                    //         name: "Apenas um usuario qualquer",
+                    //         email: "admin@example.com",
+                    //         plusData: "23/10/2023",
+                    //         nameSymbol: getNameAbreviation("Apenas um usuario qualquer"),
+                    //         plus: true,
+                    //     },
+                    //     {
+                    //         id: 2,
+                    //         username: "test",
+                    //         password: "test@123",
+                    //         name: "Teste qualquer",
+                    //         email: "teste@example.com",
+                    //         plusData: null,
+                    //         nameSymbol: getNameAbreviation("Teste qualquer"),
+                    //         plus: false,
+                    //     },
+                    //     {
+                    //         id: 3,
+                    //         username: "test2",
+                    //         password: "test@123",
+                    //         name: "2Teste qualquer",
+                    //         email: "test2@example.com",
+                    //         plusData: null,
+                    //         nameSymbol: getNameAbreviation("2Teste qualquer"),
+                    //         plus: false,
+                    //     }
+                    // ];
             
-                    const user = users.find(u => u.username === credentials.email && u.password === credentials.password);
+                    // const user = users.find(u => u.username === credentials.email && u.password === credentials.password);
     
-                    if (user) {
-                        return Promise.resolve(user);
-                    } else {
-                        return Promise.resolve(null);
-                    }
+                    // if (user) {
+                    //     return Promise.resolve(user);
+                    // } else {
+                    //     return Promise.resolve(null);
+                    // }
                 }  
             }
         }),

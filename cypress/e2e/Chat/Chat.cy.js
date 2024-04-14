@@ -1,6 +1,6 @@
 function beforeTest() {
     cy.visit('/');
-    cy.login('admin','admin');
+    cy.login('admin1','Admin@123');
 }
 
 describe("New Chat", () => {

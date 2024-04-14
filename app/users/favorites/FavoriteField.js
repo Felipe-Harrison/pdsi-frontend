@@ -48,7 +48,7 @@ export const FavoriteField = ({ message, categorie, id, data }) => {
                 </div>
                 <div className="col-span-2" />
                 <div className="col-span-8 mx-5 truncate" onClick={openModal}>
-                    Favorito: {message}
+                    {message}
                 </div>
                 <div className="col-span-2 grid grid-cols-2">
                     <button className=" 
