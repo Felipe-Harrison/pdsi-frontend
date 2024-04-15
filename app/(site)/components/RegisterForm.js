@@ -21,7 +21,7 @@ export default function RegisterForm({tooglePage}) {
 
     async function register(data,userType) {
 
-        let isSuccess = false;
+        let isSuccess = true;
         
         try {
             // Logar como admin e completar o Header

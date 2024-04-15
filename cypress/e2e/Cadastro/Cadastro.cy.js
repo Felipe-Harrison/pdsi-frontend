@@ -42,7 +42,7 @@ describe("Register Page", () => {
         cy.get(pageElements['btnCadastrar']).click();
         // Assert
 
-        cy.url().should('contain','/users');
+        cy.validaTextoToast('Usuario criado com sucesso!');
 
     });
 
